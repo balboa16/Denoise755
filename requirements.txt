@@ -3,8 +3,8 @@ aiogram>=3.0
 
 # Video Processing
 # Using pre-built wheels for Linux x86_64 (Render platform)
-# deepfilternet>=0.3.0
-# Note: If this fails to install, comment it out and video processing will be disabled
+# Note: PyTorch CPU version is installed via buildCommand in render.yaml
+# DeepFilterNet for audio denoising
 deepfilternet
 
 moviepy>=1.0.3
