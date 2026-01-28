@@ -1,6 +1,6 @@
 """
 Video Noise Reduction Bot handlers using aiogram 3.
-Processes videos to remove noise using DeepFilterNet technology.
+Processes videos to remove noise using noise reduction technology.
 """
 
 import logging
@@ -12,11 +12,10 @@ from pathlib import Path
 from aiogram import Router, F
 from aiogram.types import Message, FSInputFile
 
-from moviepy import VideoFileClip
 try:
-    from moviepy.audio.io.AudioFileClip import AudioFileClip
+    from moviepy.editor import VideoFileClip, AudioFileClip
 except ImportError:
-    from moviepy.audio.AudioClip import AudioFileClip
+    from moviepy import VideoFileClip, AudioFileClip
 
 # Noise reduction import - handle potential import errors gracefully
 try:
