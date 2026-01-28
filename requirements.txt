@@ -2,14 +2,10 @@
 aiogram>=3.0
 
 # Video Processing
-# Using pre-built wheels for Linux x86_64 (Render platform)
-# Note: PyTorch CPU version is installed via buildCommand in render.yaml
-# DeepFilterNet for audio denoising
-deepfilternet
-
 moviepy>=1.0.3
 
-# Audio Processing
+# Audio Processing - lightweight noise reduction without PyTorch
+noisereduce>=3.0.0
 librosa>=0.10.0
 
 # MCP Server for Render API

@@ -18,17 +18,16 @@ try:
 except ImportError:
     from moviepy.audio.AudioClip import AudioFileClip
 
-# DeepFilterNet import - handle potential import errors gracefully
+# Noise reduction import - handle potential import errors gracefully
 try:
-    from df import enhance, init_df
+    import noisereduce as nr
     import soundfile as sf
-    DEEPFILTERNET_AVAILABLE = True
+    NOISE_REDUCTION_AVAILABLE = True
 except ImportError:
-    DEEPFILTERNET_AVAILABLE = False
-    enhance = None
-    init_df = None
+    NOISE_REDUCTION_AVAILABLE = False
+    nr = None
     sf = None
-    logging.warning("DeepFilterNet not available. Install with: pip install deepfilternet")
+    logging.warning("Noise reduction libraries not available")
 
 # Configure logging
 logging.basicConfig(
@@ -50,7 +49,7 @@ async def cmd_start(message: Message):
     await message.answer(
         "🎬 Video Noise Reduction Bot\n\n"
         "Send me a video and I'll remove noise from its audio "
-        "using DeepFilterNet technology."
+        "using advanced noise reduction technology."
     )
 
 
@@ -61,10 +60,10 @@ async def process_video(message: Message):
     Download video, extract audio, apply noise reduction,
     merge audio back, and send processed video.
     """
-    if not DEEPFILTERNET_AVAILABLE:
+    if not NOISE_REDUCTION_AVAILABLE:
         await message.answer(
-            "❌ DeepFilterNet is not installed.\n\n"
-            "Please install it with: pip install deepfilternet"
+            "❌ Noise reduction libraries are not installed.\n\n"
+            "Please contact the bot administrator."
         )
         return
 
@@ -91,7 +90,7 @@ async def process_video(message: Message):
 
         # Inform user about processing
         await message.answer("🔊 Extracting and processing audio...")
-        logger.info("Processing audio with DeepFilterNet")
+        logger.info("Processing audio with noise reduction")
 
         # Show processing status to user
         await message.bot.send_chat_action(chat_id=message.chat.id, action="upload_video")
@@ -102,30 +101,26 @@ async def process_video(message: Message):
 
         logger.info(f"Audio extracted to {audio_path}")
 
-        # Apply DeepFilterNet noise reduction
-        await message.answer("🎧 Applying DeepFilterNet noise reduction...")
-        logger.info("Initializing DeepFilterNet model")
+        # Apply noise reduction
+        await message.answer("🎧 Applying noise reduction...")
+        logger.info("Processing with noisereduce")
 
-        # Initialize DeepFilterNet model
-        def init_and_process():
-            # Initialize model
-            model, df_state, sr = init_df()
+        # Process audio with noisereduce
+        def process_audio():
+            # Load audio
+            audio_data, sample_rate = sf.read(audio_path)
 
-            # Load audio at 48kHz
-            audio_array, _ = sf.read(audio_path)
-            if audio_array.ndim > 1:
-                audio_array = audio_array.mean(axis=1)  # Convert to mono
-
-            # Apply enhancement
-            enhanced = enhance(model, df_state, audio_array)
+            # Apply noise reduction
+            # noisereduce automatically handles mono/stereo
+            reduced_noise = nr.reduce_noise(y=audio_data, sr=sample_rate, stationary=True)
 
             # Save enhanced audio
-            sf.write(enhanced_audio_path, enhanced, sr)
+            sf.write(enhanced_audio_path, reduced_noise, sample_rate)
 
             return enhanced_audio_path
 
         # Run processing in thread to avoid blocking
-        await asyncio.to_thread(init_and_process)
+        await asyncio.to_thread(process_audio)
         logger.info(f"Enhanced audio saved to {enhanced_audio_path}")
 
         # Inform user about merging
