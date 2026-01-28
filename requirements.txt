@@ -10,7 +10,7 @@ deepfilternet
 moviepy>=1.0.3
 
 # Audio Processing
-# librosa>=0.10.0
+librosa>=0.10.0
 
 # MCP Server for Render API
 mcp>=1.0.0
