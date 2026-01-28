@@ -1,0 +1,6 @@
+aiogram>=3.0
+deepfilternet
+moviepy
+python-dotenv
+librosa
+numpy
