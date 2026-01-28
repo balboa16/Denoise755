@@ -25,3 +25,9 @@ temp_files/
 *.mov
 *.avi
 .DS_Store
+
+# Windows installers
+python311.exe
+rustup-init.exe
+*.exe
+*.msi
