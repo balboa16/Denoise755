@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "render": {
+      "command": "python",
+      "args": ["c:/Users/User/Documents/Projects/project1/mcp_render_server.py"]
+    }
+  }
+}

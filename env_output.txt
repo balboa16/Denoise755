@@ -1,0 +1,3 @@
+Env Status: 200
+Env Response: {"databasesIds":null,"envGroupIds":null,"id":"evm-d5t45rq4d50c73a0397g","ipAllowList":[{"cidrBlock":"0.0.0.0/0","description":"everywhere"}],"name":"Production","networkIsolationEnabled":false,"projectId":"prj-d5t45rq4d50c73a03970","protectedStatus":"unprotected","redisIds":null,"serviceIds":["srv-d5t45s7gi27c73803gf0"]}
+

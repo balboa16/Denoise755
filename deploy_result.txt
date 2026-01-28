@@ -1,0 +1,3 @@
+Deploy Status: 201
+Deploy Response: {"id":"dep-d5t4l64oud1c73f43ua0","commit":{"id":"6c2541dd94c3915f5882f34d8c555d22a5425c24","message":"Remove Windows installers from git tracking","createdAt":"2026-01-28T17:05:19Z"},"status":"build_in_progress","trigger":"api","createdAt":"2026-01-28T17:42:48.166133Z","updatedAt":"2026-01-28T17:42:48.166133Z","startedAt":"2026-01-28T17:42:48.160268Z"}
+
