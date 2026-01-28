@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: Denoise755
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: BOT_TOKEN
+        fromDatabase:
+          name: denoise755-env
+          property: BOT_TOKEN
+      - key: PYTHON_VERSION
+        value: "3.11"
+    systemDependencies:
+      - ffmpeg

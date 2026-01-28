@@ -1,6 +1,3 @@
+# Telegram Bot - Minimal dependencies for testing
 aiogram>=3.0
-deepfilternet
-moviepy
-python-dotenv
-librosa
-numpy
+python-dotenv>=1.0.0
